@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.drivee;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class DriveTrain {
     private final HardwareMapping mapping;
 
-    public DriveTrain(HardwareMapping mapping) {
+    public DriveTrain(HardwareMapping mapping)
+    {
         this.mapping = mapping;
     }
 
@@ -18,7 +19,7 @@ public class DriveTrain {
         double den = Math.abs(x)+Math.abs(y)+Math.abs(r);
         double power;
 
-        if (gamepad.a)
+        if (gamepad.x)
         {
             power = 1f;
         }
