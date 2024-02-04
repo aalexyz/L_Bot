@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.drive;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class DriveTrain {
     private final HardwareMapping mapping;
 
-    public DriveTrain(HardwareMapping mapping) {
+    public DriveTrain(HardwareMapping mapping)
+    {
         this.mapping = mapping;
     }
 

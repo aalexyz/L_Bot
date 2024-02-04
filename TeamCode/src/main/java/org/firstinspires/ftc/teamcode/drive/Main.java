@@ -1,8 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.teamcode.OutTakeq;
+import org.firstinspires.ftc.teamcode.components.Elevator;
+import org.firstinspires.ftc.teamcode.Intake;
+import org.firstinspires.ftc.teamcode.ptautocosmin.Controls;
 
 @TeleOp(name="Main")
 public class Main extends LinearOpMode {
@@ -11,6 +16,10 @@ public class Main extends LinearOpMode {
         final HardwareMapping mapping = HardwareMapping.from(hardwareMap);
         DriveTrain dt = new DriveTrain(mapping);
         FieldCentric dtfc = new FieldCentric(mapping);
+        Controls controls = new Controls(gamepad1, gamepad2);
+        Intake intake = new Intake(mapping);
+        OutTakeq outtake = new OutTakeq(hardwareMap);
+        Elevator elevator = new Elevator(hardwareMap, telemetry);
         boolean ok = true;
         Gamepad gmcur = gamepad1, gmprev;
 
@@ -32,11 +41,14 @@ public class Main extends LinearOpMode {
             else
                 dtfc.update(gamepad1);
 
+            controls.update();
             dt.update(gamepad1);
             dtfc.update(gamepad1);
+            intake.update(gamepad2);
+            outtake.update(gamepad2);
             telemetry.update();
             // gamepad1 - drivetrain
-            // gamepad2 - intake
+            // gamepad2 - intake, outtake, restul
             // share - schimba de la robot centric la field centric
             // a - acceleraza sper..........
             //
