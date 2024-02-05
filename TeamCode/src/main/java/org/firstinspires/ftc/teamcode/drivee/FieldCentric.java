@@ -43,12 +43,19 @@ public class FieldCentric {
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
         rotX = rotX * 1.1;
-        // pana aici gm0.......................... trb sa adaug butonul a pt accelerare cred?????
+        double power;
+
+        if (gamepad.x)
+        {
+            power = 1f;
+        }
+        else power = 1.5;
+
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(r), 1);
-        double frontleftpower = (rotY + rotX + r) / denominator;
-        double backleftpower = (rotY - rotX + r) / denominator;
-        double frontrightpower = (rotY - rotX - r) / denominator;
-        double backrightpower = (rotY + rotX - r) / denominator;
+        double frontleftpower = (rotY + rotX + r) / denominator / power;
+        double backleftpower = (rotY - rotX + r) / denominator / power;
+        double frontrightpower = (rotY - rotX - r) / denominator / power;
+        double backrightpower = (rotY + rotX - r) / denominator / power;
         mapping.frontRightMotor.setPower(frontrightpower);
         mapping.frontLeftMotor.setPower(frontleftpower);
         mapping.backRightMotor.setPower(backrightpower);

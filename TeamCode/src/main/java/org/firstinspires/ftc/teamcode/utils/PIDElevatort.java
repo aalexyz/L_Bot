@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.utils;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.control.PIDFController;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "pid4elevator")
 @Config
-public class pidelevator extends LinearOpMode
+public class PIDElevatort extends LinearOpMode
 {
     private PIDController controller;
     public static double p = 0, i = 0, d = 0, f = 0;
@@ -18,12 +17,12 @@ public class pidelevator extends LinearOpMode
     private final double ticksid = 0; // ticks in degree
     private final double ZERO_OFFSET = 0; // measured val
 
-    private DcMotorEx liftmotor;
+    public DcMotorEx liftMotor;
 
     @Override
     public void runOpMode() throws InterruptedException {
         controller = new PIDController(p, i, d);
-        liftmotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
         waitForStart();
 
         if (isStopRequested()) return;
@@ -31,13 +30,13 @@ public class pidelevator extends LinearOpMode
         while (opModeIsActive())
         {
             controller.setPID(p, i, d);
-            int pos = liftmotor.getCurrentPosition();
+            int pos = liftMotor.getCurrentPosition();
             double pid = controller.calculate(pos, targetpos);
             double ff = Math.sin(Math.toRadians(pos / ticksid + ZERO_OFFSET)) * f;
 
             double power = pid + ff;
 
-            liftmotor.setPower(power);
+            liftMotor.setPower(power);
 
         }
 

@@ -21,14 +21,14 @@ public class DriveTrain {
 
         if (gamepad.x)
         {
-            power = 1f;
+            power = 1.0f;
         }
-        else power = 1.5;
+        else power = 0.5354678974568797823456734275;
 
-        double frontrightpower = (y - x - r) / den / power;
-        double frontleftpower = (y + x + r) / den / power;
-        double backleftpower = (y - x + r) / den / power;
-        double backrightpower = (y + x - r) / den / power;
+        double frontrightpower = (y - x - r) / den * power;
+        double frontleftpower = (y + x + r) / den * power;
+        double backleftpower = (y - x + r) / den * power;
+        double backrightpower = (y + x - r) / den * power;
 
         mapping.frontRightMotor.setPower(frontrightpower);
         mapping.frontLeftMotor.setPower(frontleftpower);

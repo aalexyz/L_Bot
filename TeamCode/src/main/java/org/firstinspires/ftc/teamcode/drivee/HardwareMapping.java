@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.drivee;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareMapping {
     public static final String FRONT_LEFT_MOTOR = "motorFL";
@@ -12,34 +12,38 @@ public class HardwareMapping {
     public static final String BACK_LEFT_MOTOR = "motorBL";
     public static final String BACK_RIGHT_MOTOR = "motorBR";
     public static final String INTAKE_MOTOR = "motorIntake";
-
-    //public static final String SERVO_GOBILDA = "servoGobilda";
-
-    //public static final String SERVO_REV = "servoRev";
+    public static final String LIFT_MOTOR = "motorLift";
+    public static final String LIFT_MOTOR_REVERSE = "motorLiftR";
 
     public final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, intakeMotor;
-    // public final Servo servoGobilda, servoRev;
+    public final DcMotor liftMotor, liftMotorR;
     public final IMU imu;
 
-    public HardwareMapping(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor, DcMotor intakeMotor, IMU imu) {
+    public HardwareMapping(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor, DcMotor intakeMotor, IMU imu, DcMotor liftMotor, DcMotor liftMotorR) {
         this.frontLeftMotor = frontLeftMotor;
         this.backLeftMotor = backLeftMotor;
         this.frontRightMotor = frontRightMotor;
         this.backRightMotor = backRightMotor;
+
         this.intakeMotor = intakeMotor;
+
         this.imu = imu;
 
+        this.liftMotor = liftMotor;
+        this.liftMotorR = liftMotorR;
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftMotorR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotorR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // servouri outtake si in general tbh le adaug later
 
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -55,7 +59,9 @@ public class HardwareMapping {
                 map.dcMotor.get(FRONT_RIGHT_MOTOR),
                 map.dcMotor.get(BACK_RIGHT_MOTOR),
                 map.dcMotor.get(INTAKE_MOTOR),
-                map.get(IMU.class, "imu")
+                map.get(IMU.class, "imu"),
+                map.dcMotor.get(LIFT_MOTOR),
+                map.dcMotor.get(LIFT_MOTOR_REVERSE)
                 );
     }
 }
