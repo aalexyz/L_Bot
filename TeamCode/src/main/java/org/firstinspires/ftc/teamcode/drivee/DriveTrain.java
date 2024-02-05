@@ -1,9 +1,4 @@
-<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drivee/DriveTrain.java
 package org.firstinspires.ftc.teamcode.drivee;
-========
-package org.firstinspires.ftc.teamcode.drive;
->>>>>>>> origin/master:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/DriveTrain.java
-
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class DriveTrain {

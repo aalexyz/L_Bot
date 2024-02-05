@@ -1,9 +1,4 @@
-<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drivee/FieldCentric.java
 package org.firstinspires.ftc.teamcode.drivee;
-========
-package org.firstinspires.ftc.teamcode.drive;
->>>>>>>> origin/master:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/FieldCentric.java
-
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.Gamepad;
