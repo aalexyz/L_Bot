@@ -50,18 +50,13 @@ public class Main extends LinearOpMode {
 
             dt.update(gamepad1);
             dtfc.update(gamepad1);
-            intake.update(gamepad1);
+            intake.update(gamepad1); // circle, square
             outtake.update(gamepad2);
-            elevator.update(gamepad2);
+            //elevator.update(gamepad2);
             telemetry.update();
             for (LynxModule hub : allHubs) {
                 hub.clearBulkCache();
             }
-            // gamepad1 - drivetrain
-            // gamepad2 - intake, outtake, restul
-            // share - schimba de la robot centric la field centric
-            // a / x - acceleraza sper.......... gm1 (hold)
-            // circle / square - intake gm2 (hold)
         }
     }
 }

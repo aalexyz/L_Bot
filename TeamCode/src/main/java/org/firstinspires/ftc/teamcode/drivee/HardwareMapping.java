@@ -14,12 +14,14 @@ public class HardwareMapping {
     public static final String INTAKE_MOTOR = "motorIntake";
     public static final String LIFT_MOTOR = "motorLift";
     public static final String LIFT_MOTOR_REVERSE = "motorLiftR";
+    public static final String LIFT_ENCODER = "liftEncoder";
+
 
     public final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, intakeMotor;
-    public final DcMotor liftMotor, liftMotorR;
+    public final DcMotorEx liftMotor, liftMotorR, liftEncoder;
     public final IMU imu;
 
-    public HardwareMapping(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor, DcMotor intakeMotor, IMU imu, DcMotor liftMotor, DcMotor liftMotorR) {
+    public HardwareMapping(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor, DcMotor intakeMotor, IMU imu, DcMotorEx liftMotor, DcMotorEx liftMotorR, DcMotorEx liftEncoder) {
 
         this.frontLeftMotor = frontLeftMotor;
         this.backLeftMotor = backLeftMotor;
@@ -32,6 +34,7 @@ public class HardwareMapping {
 
         this.liftMotor = liftMotor;
         this.liftMotorR = liftMotorR;
+        this.liftEncoder = liftEncoder;
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -62,8 +65,9 @@ public class HardwareMapping {
                 map.dcMotor.get(BACK_RIGHT_MOTOR),
                 map.dcMotor.get(INTAKE_MOTOR),
                 map.get(IMU.class, "imu"),
-                map.dcMotor.get(LIFT_MOTOR),
-                map.dcMotor.get(LIFT_MOTOR_REVERSE)
-                );
+                (DcMotorEx) map.dcMotor.get(LIFT_MOTOR),
+                (DcMotorEx) map.dcMotor.get(LIFT_MOTOR_REVERSE),
+                (DcMotorEx) map.dcMotor.get(LIFT_ENCODER)
+        );
     }
 }
