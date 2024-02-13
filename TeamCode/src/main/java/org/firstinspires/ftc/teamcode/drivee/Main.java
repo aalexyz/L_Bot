@@ -44,9 +44,15 @@ public class Main extends LinearOpMode {
                 ok=!ok;
 
             if(ok)
+            {
                 dt.update(gamepad1);
+                telemetry.addLine("robot centric drivetrain, press share to switch");
+            }
             else
+            {
                 dtfc.update(gamepad1);
+                telemetry.addLine("field centric drivetrain, press share to switch");
+            }
 
             dt.update(gamepad1);
             dtfc.update(gamepad1);

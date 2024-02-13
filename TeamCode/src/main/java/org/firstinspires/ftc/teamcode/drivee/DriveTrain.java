@@ -22,7 +22,7 @@ public class DriveTrain {
         {
             power = 1.0f;
         }
-        else power = 0.5354678974568797823456734275;
+        else power = 0.5;
 
         double frontrightpower = (y - x - r) / den * power;
         double frontleftpower = (y + x + r) / den * power;

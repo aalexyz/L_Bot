@@ -21,9 +21,7 @@ public class FieldCentric {
                 RevHubOrientationOnRobot.UsbFacingDirection.DOWN)
         );
         mapping.imu.initialize(parameters);
-
-// le schimb dupa daca treb wtv o iau razna in muiesil asylum
-
+// trb schimbate iar crd
 
 
     }
@@ -46,15 +44,15 @@ public class FieldCentric {
 
         if (gamepad.x)
         {
-            power = 1f;
+            power = 1.0f;
         }
-        else power = 1.5;
+        else power = 0.5;
 
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(r), 1);
-        double frontleftpower = (rotY + rotX + r) / denominator / power;
-        double backleftpower = (rotY - rotX + r) / denominator / power;
-        double frontrightpower = (rotY - rotX - r) / denominator / power;
-        double backrightpower = (rotY + rotX - r) / denominator / power;
+        double frontleftpower = (rotY + rotX + r) / denominator * power;
+        double backleftpower = (rotY - rotX + r) / denominator * power;
+        double frontrightpower = (rotY - rotX - r) / denominator * power;
+        double backrightpower = (rotY + rotX - r) / denominator * power;
         mapping.frontRightMotor.setPower(frontrightpower);
         mapping.frontLeftMotor.setPower(frontleftpower);
         mapping.backRightMotor.setPower(backrightpower);
