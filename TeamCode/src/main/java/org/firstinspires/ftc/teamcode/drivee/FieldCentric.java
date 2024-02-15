@@ -8,19 +8,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class FieldCentric {
 
-    private final HardwareMapping mapping;
+    private final HardwareMapA mappingA;
     IMU imu;
     double botHeading;
-    public FieldCentric(HardwareMapping hardwareMap)
+    public FieldCentric(HardwareMapA mappingA)
     {
-        this.mapping = hardwareMap;
+        this.mappingA = mappingA;
 
         IMU.Parameters parameters = new IMU.Parameters
                 (new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.DOWN)
         );
-        mapping.imu.initialize(parameters);
+        mappingA.imu.initialize(parameters);
 // trb schimbate iar crd
 
 
@@ -53,10 +53,10 @@ public class FieldCentric {
         double backleftpower = (rotY - rotX + r) / denominator * power;
         double frontrightpower = (rotY - rotX - r) / denominator * power;
         double backrightpower = (rotY + rotX - r) / denominator * power;
-        mapping.frontRightMotor.setPower(frontrightpower);
-        mapping.frontLeftMotor.setPower(frontleftpower);
-        mapping.backRightMotor.setPower(backrightpower);
-        mapping.backLeftMotor.setPower(backleftpower);
+        mappingA.frontRightMotor.setPower(frontrightpower);
+        mappingA.frontLeftMotor.setPower(frontleftpower);
+        mappingA.backRightMotor.setPower(backrightpower);
+        mappingA.backLeftMotor.setPower(backleftpower);
 
 
 

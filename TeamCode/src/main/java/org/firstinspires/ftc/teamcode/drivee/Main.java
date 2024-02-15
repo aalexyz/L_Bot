@@ -19,8 +19,8 @@ public class Main extends LinearOpMode {
         List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
 
         final HardwareMapping mapping = HardwareMapping.from(hardwareMap);
-        DriveTrain dt = new DriveTrain(mapping);
-        FieldCentric dtfc = new FieldCentric(mapping);
+        //DriveTrain dt = new DriveTrain(mapping);
+        //FieldCentric dtfc = new FieldCentric(mapping);
         Intake intake = new Intake(mapping);
         OutTake outtake = new OutTake(hardwareMap, telemetry);
         Elevator elevator = null;
@@ -37,7 +37,7 @@ public class Main extends LinearOpMode {
 
         while (opModeIsActive())
         {
-            gmprev = gmcur; // gmcur - gamepadcurrent gmprev - gamepadprevious
+           /* gmprev = gmcur; // gmcur - gamepadcurrent gmprev - gamepadprevious
             gmcur = gamepad1;
 
             if(gmcur.share && !gmprev.share)
@@ -59,6 +59,7 @@ public class Main extends LinearOpMode {
             intake.update(gamepad1); // circle, square
             outtake.update(gamepad2);
             //elevator.update(gamepad2);
+            */
             telemetry.update();
             for (LynxModule hub : allHubs) {
                 hub.clearBulkCache();

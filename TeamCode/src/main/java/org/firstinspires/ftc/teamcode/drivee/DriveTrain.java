@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.drivee;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class DriveTrain {
-    private final HardwareMapping mapping;
+    private final HardwareMapA mappingA;
 
-    public DriveTrain(HardwareMapping mapping)
+    public DriveTrain(HardwareMapA mappingA)
     {
-        this.mapping = mapping;
+        this.mappingA = mappingA;
     }
 
     public void update(Gamepad gamepad)
@@ -18,7 +18,7 @@ public class DriveTrain {
         double den = Math.abs(x)+Math.abs(y)+Math.abs(r);
         double power;
 
-        if (gamepad.x)
+        if (gamepad.a)
         {
             power = 1.0f;
         }
@@ -29,10 +29,10 @@ public class DriveTrain {
         double backleftpower = (y - x + r) / den * power;
         double backrightpower = (y + x - r) / den * power;
 
-        mapping.frontRightMotor.setPower(frontrightpower);
-        mapping.frontLeftMotor.setPower(frontleftpower);
-        mapping.backRightMotor.setPower(backrightpower);
-        mapping.backLeftMotor.setPower(backleftpower);
+        mappingA.frontRightMotor.setPower(frontrightpower);
+        mappingA.frontLeftMotor.setPower(frontleftpower);
+        mappingA.backRightMotor.setPower(backrightpower);
+        mappingA.backLeftMotor.setPower(backleftpower);
 
 
     }
