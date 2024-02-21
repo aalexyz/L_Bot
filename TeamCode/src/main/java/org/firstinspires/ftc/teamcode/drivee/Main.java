@@ -33,9 +33,7 @@ public class Main extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
-
-        while (opModeIsActive())
+        while (!isStopRequested() && opModeIsActive())
         {
            /* gmprev = gmcur; // gmcur - gamepadcurrent gmprev - gamepadprevious
             gmcur = gamepad1;

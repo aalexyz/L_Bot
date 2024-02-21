@@ -13,17 +13,14 @@ public class HardwareMapA {
     public static final String BACK_RIGHT_MOTOR = "motorBR";
 
     public final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
-    public final IMU imu;
 
-    public HardwareMapA(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor, IMU imu) {
+    public HardwareMapA(DcMotor frontLeftMotor, DcMotor backLeftMotor, DcMotor frontRightMotor, DcMotor backRightMotor) {
 
         this.frontLeftMotor = frontLeftMotor;
         this.backLeftMotor = backLeftMotor;
         this.frontRightMotor = frontRightMotor;
         this.backRightMotor = backRightMotor;
 
-
-        this.imu = imu;
 
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -47,8 +44,7 @@ public class HardwareMapA {
                 map.dcMotor.get(FRONT_LEFT_MOTOR),
                 map.dcMotor.get(BACK_LEFT_MOTOR),
                 map.dcMotor.get(FRONT_RIGHT_MOTOR),
-                map.dcMotor.get(BACK_RIGHT_MOTOR),
-                map.get(IMU.class, "imu")
+                map.dcMotor.get(BACK_RIGHT_MOTOR)
         );
     }
 }

@@ -4,14 +4,11 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.apache.commons.math3.geometry.euclidean.twod.Line;
 
 import java.util.List;
 
-@TeleOp(name = "kms")
-public class sasiu extends LinearOpMode
+@TeleOp(name = "DTTEST")
+public class DTTest extends LinearOpMode
 {
     @Override
     public void runOpMode() throws InterruptedException
@@ -22,7 +19,7 @@ public class sasiu extends LinearOpMode
         final HardwareMapA mappingA = HardwareMapA.from(hardwareMap);
 
         DriveTrain dt = new DriveTrain(mappingA);
-        FieldCentric dtfc = new FieldCentric(mappingA);
+        FieldCentric dtfc = new FieldCentric(mappingA, hardwareMap);
 
         boolean ok = true;
         Gamepad gmcur = gamepad1, gmprev;
@@ -33,9 +30,7 @@ public class sasiu extends LinearOpMode
 
         waitForStart();
 
-        if (isStopRequested()) return;
-
-        while(opModeIsActive())
+        while(!isStopRequested() && opModeIsActive())
         {
 
             gmprev = gmcur; // gmcur - gamepadcurrent gmprev - gamepadprevious
