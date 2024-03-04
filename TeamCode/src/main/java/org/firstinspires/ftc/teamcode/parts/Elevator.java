@@ -1,41 +1,36 @@
 package org.firstinspires.ftc.teamcode.parts;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.drivee.HardwareMapping;
-import org.firstinspires.ftc.teamcode.utils.PID;
-import org.firstinspires.ftc.teamcode.utils.PIDElevator;
+import org.firstinspires.ftc.teamcode.drivee.HardwareMapA;
 
-public class Elevator {
+public class Elevator { // nu se stie ce e asta e fucked up cel mai probabil
 
-    private final HardwareMapping mapping;
+    private HardwareMapA mapping;
+    private Claw claw;
 
-
-    enum LiftState
+    enum EvState
     {
-        START, // poz de start adica nu e extended inca
-        EXTEND, // extend obvs ca sa get pixels
-        GOT_PIXELS, // extend inapoi oare pot ssa il fac se depkinda de intake sper ca da sigur da e o pb pt eu din viitor
-        PLACE_PIXELS, // extend outtake
-        WAIT_FOR_PIXELS  // asteapta sa fie pusi pixelii si merge inapoi la start crd
-        //imi mai trb un state la care nu ajunge? idk? help?????? oare imi mai trb un go back to start?
+        START, // poz de start
+        EXTEND, // extend obvs
+        DOWN, // 2
+        WAIT_FOR_ARM,
+        WAIT_FOR_PIXELS
 
     }
-    public static double kp,ki,kd;
+    public static double kp,ki,kd,f;
     public static ElapsedTime timer = new ElapsedTime();
-    PID pid = new PID(kp , ki , kd);
-    LiftState liftState = LiftState.START;
+    PIDFCoefficients pidf = new PIDFCoefficients(kp, ki, kd, f);
+    EvState liftState = EvState.START;
 
-    public Elevator(HardwareMapping mapping)
+    public Elevator(HardwareMapA mappingA)
     {
-        this.mapping = mapping;
-        mapping.liftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // nu cred ca trb sa fac asta aici dar wtv
-        mapping.liftEncoder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        this.mapping = mappingA;
+        mappingA.motorSlider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mappingA.motorSlider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void update(Gamepad gamepad)
@@ -44,9 +39,17 @@ public class Elevator {
         switch (liftState)
         {
             case EXTEND:
-
+                mapping.motorSlider.setPower(1);
+                claw.isRotated = false;
+                break;
+            case DOWN:
+                mapping.motorSlider.setPower(-1);
+                claw.isRotated = true;
+                break;
+            case START:
+                mapping.motorSlider.setPower(0);
+                claw.isRotated = false;
+                break;
         }
-       // double power=pid(100, mapping.liftEncoder.getCurrentPosition());
-       // mapping.liftMotor.setPower(power);
     }
 }

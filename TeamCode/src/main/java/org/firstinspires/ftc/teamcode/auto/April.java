@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -16,10 +17,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
+@Autonomous(name = "AUTO")
 public class April extends LinearOpMode {
 
     int AprilTagID;
+    double xpose, ypoxe, zpose,
+           pitch, roll, yaw,
+           range, bearing, elevation;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,6 +41,7 @@ public class April extends LinearOpMode {
                 .setCamera(hardwareMap.get(WebcamName.class, "camera"))
                 .setCameraResolution(new Size(640, 480))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
+                .enableLiveView(true)
                 .build();
 
         while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {}
@@ -63,6 +68,7 @@ public class April extends LinearOpMode {
                     telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f", tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z));
                 }
             }
+
         }
         telemetry.update();
     }

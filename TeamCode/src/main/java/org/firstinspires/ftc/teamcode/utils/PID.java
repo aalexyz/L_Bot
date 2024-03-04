@@ -12,15 +12,15 @@ public class PID {
         this.ki=ki;
         this.kd=kd;
     }
-    double integralSum=0;
-    double lasterror=0;
+    double integralSum = 0;
+    double lasterror = 0;
     ElapsedTime timer=new ElapsedTime();
 
     double pid(double reference , double state){ // "getVelocity"
         double error=reference-state;
         integralSum+=error*timer.seconds();
-        double derivtive=(error-lasterror)/timer.seconds();
-        double output=error*kp+integralSum*ki+derivtive*kd;
+        double derivative=(error-lasterror)/timer.seconds();
+        double output=error*kp+integralSum*ki+derivative*kd;
         lasterror=error;
         timer.reset();
 
