@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,8 +11,8 @@ public class IntakeTest extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
 
-        final HardwareMapA mappingA = HardwareMapA.from(hardwareMap);
-        Claw claw = new Claw(mappingA);
+        final HardwareMapA hm = HardwareMapA.from(hardwareMap);
+        Claw claw = new Claw(hm);
 
         waitForStart();
 

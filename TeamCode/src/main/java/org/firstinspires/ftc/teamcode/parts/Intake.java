@@ -17,12 +17,12 @@ public class Intake {
     public void update(Gamepad gamepad)
     {
 
-        if (gamepad.circle)
+        if (gamepad.x)
         {
             mapping.intakeMotor.setPower(1);
             intakeON = true;
         }
-        else if (gamepad.square)
+        else if (gamepad.b)
         {
             mapping.intakeMotor.setPower(-1);
             intakeON = true;

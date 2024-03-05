@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.drivee.HardwareMapA;
 import org.firstinspires.ftc.teamcode.drivee.HardwareMapping;
 import org.firstinspires.ftc.teamcode.utils.PID;
 import org.firstinspires.ftc.teamcode.utils.PIDElevator;
@@ -19,6 +20,8 @@ import java.io.PipedOutputStream;
 
 @Config
 public class Elevator {
+    
+    private HardwareMapA hm;
 
     enum LiftState
     {
@@ -35,16 +38,15 @@ public class Elevator {
     public LiftState liftState;
 
     public static ElapsedTime timer = new ElapsedTime();
-    public static DcMotorEx motor;
     public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0, 0, 0, 0);
     public static int maxUp = 200;
-    public Elevator(HardwareMap hm)
+    public Elevator(HardwareMapA hm)
     {
-        motor = hm.get(DcMotorEx.class, "motor");
-
-        MotorConfigurationType mct = motor.getMotorType().clone();
+        this.hm = hm;
+        
+        MotorConfigurationType mct = hm.motorSlider.getMotorType().clone();
         mct.setAchieveableMaxRPMFraction(1.0);
-        motor.setMotorType(mct);
+        hm.motorSlider.setMotorType(mct);
 
         liftState = LiftState.RETRACT;
     }
@@ -55,17 +57,17 @@ public class Elevator {
         switch (liftState)
         {
             case RETRACT:
-                motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                motor.setPower(-1);
+                hm.motorSlider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                hm.motorSlider.setPower(-1);
                 liftState = LiftState.RETRACTED;
                 break;
             case RETRACTED:
-                if(motor.getVelocity(AngleUnit.DEGREES) <= 10){ // to be tuned
-                    motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    motor.setTargetPosition(0);
-                    motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    motor.setPower(1);
+                if(hm.motorSlider.getVelocity(AngleUnit.DEGREES) <= 10){ // to be tuned
+                    hm.motorSlider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    hm.motorSlider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    hm.motorSlider.setTargetPosition(0);
+                    hm.motorSlider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    hm.motorSlider.setPower(1);
                     liftState = LiftState.NULL;
                 }
 
@@ -76,7 +78,7 @@ public class Elevator {
                 if(LiftState.position < 0) LiftState.position = 0;
                 break;
             case EXTEND:
-                motor.setTargetPosition(LiftState.position);
+                hm.motorSlider.setTargetPosition(LiftState.position);
                 liftState = LiftState.EXTENDED;
                 break;
         }
