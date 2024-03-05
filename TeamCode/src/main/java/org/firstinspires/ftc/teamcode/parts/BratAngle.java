@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 public class BratAngle {
     public DcMotorEx motor;
     public static int targetPositoin, position;
+
     public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0, 0, 0, 0), lastPIDF;
     public BratAngle(HardwareMap hm){
         motor = hm.get(DcMotorEx.class, "brat motor");
@@ -39,9 +40,9 @@ public class BratAngle {
     public void update(){
         if(lastPIDF != pidfCoefficients){
             motor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidfCoefficients);
+            lastPIDF = pidfCoefficients;
         }
         motor.setTargetPosition(targetPositoin);
-        motor.setPower(1);
         position = motor.getCurrentPosition();
     }
 

@@ -3,16 +3,17 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.parts.BratAngle;
+import org.firstinspires.ftc.teamcode.parts.OutTake;
 
 public class testBrat extends LinearOpMode {
-    public static BratAngle bratAngle;
     @Override
     public void runOpMode() throws InterruptedException {
-        bratAngle = new BratAngle(hardwareMap);
+        OutTake outTake = new OutTake(hardwareMap, telemetry);
+
         waitForStart();
 
         while (opModeIsActive() && !isStopRequested()){
-            bratAngle.update();
+            outTake.update(gamepad1);
         }
 
     }

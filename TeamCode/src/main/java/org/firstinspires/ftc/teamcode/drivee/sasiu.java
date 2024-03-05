@@ -22,7 +22,7 @@ public class sasiu extends LinearOpMode
         final HardwareMapA mappingA = HardwareMapA.from(hardwareMap);
 
         DriveTrain dt = new DriveTrain(mappingA);
-        FieldCentric dtfc = new FieldCentric(mappingA);
+        FieldCentric dtfc = new FieldCentric(mappingA, hardwareMap);
 
         boolean ok = true;
         Gamepad gmcur = gamepad1, gmprev;

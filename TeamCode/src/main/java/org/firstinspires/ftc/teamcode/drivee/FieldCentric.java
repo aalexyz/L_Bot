@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drivee;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -11,16 +12,17 @@ public class FieldCentric {
     private final HardwareMapA mappingA;
     IMU imu;
     double botHeading;
-    public FieldCentric(HardwareMapA mappingA)
+    public FieldCentric(HardwareMapA mappingA, HardwareMap hardwareMap)
     {
         this.mappingA = mappingA;
 
+        IMU imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters
                 (new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.DOWN)
         );
-        mappingA.imu.initialize(parameters);
+        imu.initialize(parameters);
 // trb schimbate iar crd
 
 
@@ -42,7 +44,7 @@ public class FieldCentric {
         rotX = rotX * 1.1;
         double power;
 
-        if (gamepad.x)
+        if (gamepad.a)
         {
             power = 1.0f;
         }
