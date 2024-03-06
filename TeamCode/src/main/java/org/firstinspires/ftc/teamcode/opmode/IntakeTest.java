@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.drivee.HardwareMapA;
 import org.firstinspires.ftc.teamcode.parts.Claw;
+import org.firstinspires.ftc.teamcode.parts.OutTakeB;
 
 @TeleOp
 public class IntakeTest extends LinearOpMode {
@@ -12,7 +13,7 @@ public class IntakeTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         final HardwareMapA hm = HardwareMapA.from(hardwareMap);
-        Claw claw = new Claw(hm);
+        OutTakeB ot = new OutTakeB(hm);
 
         waitForStart();
 
@@ -20,7 +21,7 @@ public class IntakeTest extends LinearOpMode {
 
         while (opModeIsActive())
         {
-            claw.update(gamepad2);
+            ot.update(gamepad1);
             telemetry.update();
         }
     }

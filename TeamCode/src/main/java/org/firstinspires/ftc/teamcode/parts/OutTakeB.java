@@ -1,30 +1,82 @@
 package org.firstinspires.ftc.teamcode.parts;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drivee.HardwareMapA;
-import org.firstinspires.ftc.teamcode.utils.PIDElevator;
 
 public class OutTakeB {
-    private final HardwareMapA mappingA;
-    private PIDElevator pidElevator;
-    public OutTakeB (HardwareMapA mappingA)
-    {
-        this.mappingA = mappingA;
 
-        mappingA.motorRotation.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mappingA.motorSlider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    private final HardwareMapA hm;
 
-        mappingA.motorRotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mappingA.motorSlider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    enum StateOT { //StateOT nextState?
+        DOWN, UP
     }
 
-    public void update (Gamepad gamepad)
+    StateOT state = StateOT.DOWN;
+    public Elevator elevator;
+    public BratAngle bratAngle;
+    public Claw claw;
+    public OutTakeB(HardwareMapA hm)
     {
-        if (gamepad.x) {
-            mappingA.motorRotation.setPower(pidElevator.pidev(mappingA.motorRotation, 1));
+        this.hm = hm;
+
+        elevator = new Elevator(hm);
+        bratAngle = new BratAngle(hm);
+    }
+    public static int down = 0, up = 1000;
+    Gamepad currentgm, prevgm;
+    public void update(Gamepad gamepad)
+    {
+        prevgm = currentgm;
+        currentgm = gamepad;
+
+        if (gamepad.y && !prevgm.y)
+        {
+            hm.servoC1.setPosition(Claw.backdropPos);
+            Claw.isRotated = true;
         }
-        else mappingA.motorRotation.setPower(0);
+        else if (gamepad.a && !prevgm.a)
+        {
+            hm.servoC1.setPosition(Claw.intakePos);
+            Claw.isRotated = false;
+        }
+
+        if(Claw.c1isOpened && (gamepad.b && !prevgm.b)) {
+            claw.clawState = Claw.ClawState.OPENED_LEFT;
+        } else {
+            claw.clawState = Claw.ClawState.CLOSED_LEFT;
+        }
+
+        if(Claw.c2isOpened && (gamepad.x && !prevgm.x)) {
+            claw.clawState = Claw.ClawState.OPENED_RIGHT;
+        } else {
+            claw.clawState = Claw.ClawState.CLOSED_RIGHT;
+        }
+
+        if(gamepad.dpad_left && state == StateOT.DOWN) {
+            bratAngle.setPosition(up);
+            state = StateOT.UP;
+        }
+        else {
+            bratAngle.setPosition(down);
+            state = StateOT.DOWN;
+        }
+        if (gamepad.dpad_up)
+        {
+            elevator.liftState = Elevator.LiftState.EXTENDED;
+        }
+        else if (gamepad.dpad_down)
+        {
+            elevator.liftState = Elevator.LiftState.RETRACTED;
+        }
+        elevator.update(gamepad);
+        bratAngle.update();
+        claw.update();
     }
+
 }
+
+

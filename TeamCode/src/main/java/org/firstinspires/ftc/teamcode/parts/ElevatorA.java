@@ -18,27 +18,29 @@ public class ElevatorA {
         mapping.motorSlider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motion.setMotion(0, 0, 0);
     }
-    enum LiftState //nextstate thing
+    enum LiftStates //nextstate thing
     {
         START,
         WAIT_FOR_ROTATE,
         GOINGUP,
         WAIT_FOR_OT,
-        GOINGDOWN;
+        GOINGDOWN
+        /*
         public int position;
-        public final LiftState nextState;
-
-        LiftState(int position){
+        public final LiftStates nextState;
+        LiftStates(int position){
             this.position = position;
             this.nextState = this;
         }
 
-        LiftState(int position, LiftState nextState){
+        LiftStates(int position, LiftStates nextState){
             this.position = position;
             this.nextState = nextState;
         }
+        s a inncercat
+         */
     }
-    public LiftState liftState = LiftState.START;
+    public LiftStates liftState = LiftStates.START;
     public double pos = 0, error, pow, lastpos, maxVelocity = 0, acc = 0, dec = 0;
     boolean ok, down = true;
     int nr;
